@@ -1,0 +1,28 @@
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "${LOG_MAX_SIZE:-10m}"
+    max-file: "${LOG_MAX_FILE:-3}"
+    compress: "${LOG_COMPRESS:-true}"
+services:
+  sftp:
+    image: ${IMAGE:-atmoz/sftp:latest}
+    container_name: sftp
+    restart: unless-stopped
+    logging: *default-logging
+    configs:
+      - source: sftp-pub-key
+        target: ${SFTP_HOME}/.ssh/keys/key.pub
+    command: ${SFTP_USER}:${SFTP_PASSWORD:-}:${SFTP_UID:-1000}:${SFTP_GID:-1000}:${SFTP_FOLDER:-databases}
+    ports:
+      - ${SFTP_IP:-0.0.0.0}:${SFTP_PORT:-2222}:22
+    volumes:
+      - sftp-data:${SFTP_HOME}/${SFTP_FOLDER:-databases}/${SFTP_DATA:-sftp-data}
+configs:
+  sftp-pub-key:
+    content: |-
+      ${SFTP_PUB_KEY}
+volumes:
+  sftp-data:
+    name: ${SFTP_DATA:-sftp-data}
+    external: true

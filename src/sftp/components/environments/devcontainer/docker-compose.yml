@@ -1,0 +1,8 @@
+services:
+  sftp:
+    networks:
+      - sftp-workspace-network
+
+networks:
+  sftp-workspace-network:
+    external: true

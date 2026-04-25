@@ -1,0 +1,4 @@
+services:
+  sftp:
+    volumes:
+      - ${SFTP_FILESYSTEM:-/var/lib/docker/volumes}:${SFTP_HOME}/${SFTP_FOLDER:-databases}

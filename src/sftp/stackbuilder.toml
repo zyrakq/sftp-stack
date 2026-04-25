@@ -1,0 +1,11 @@
+[paths]
+environments_path = "./environments"
+extensions_dirs = ["extensions/mount"]
+
+[build]
+skip_base_generation = true
+extensions = ["filesystem", "volume"]
+
+
+[build.environments]
+available = ["devcontainer", "forwarding", "internal"]

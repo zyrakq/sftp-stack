@@ -1,0 +1,9 @@
+services:
+  sftp:
+    volumes:
+      - sftp-data:${SFTP_HOME}/${SFTP_FOLDER:-databases}/${SFTP_DATA:-sftp-data}
+
+volumes:
+  sftp-data:
+    name: ${SFTP_DATA:-sftp-data}
+    external: true

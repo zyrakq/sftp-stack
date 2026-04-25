@@ -1,0 +1,4 @@
+services:
+  sftp:
+    ports:
+      - ${SFTP_IP:-0.0.0.0}:${SFTP_PORT:-2222}:22
